@@ -20,6 +20,8 @@ package com.io7m.tavella.native_exec.internal;
 import com.io7m.tavella.api.PodmanExecutableConfiguration;
 import com.io7m.tavella.api.PodmanImage;
 import com.io7m.tavella.api.PodmanProcessRunBuilderType;
+import com.io7m.tavella.api.PodmanTmpFSFlag;
+import com.io7m.tavella.api.PodmanTmpFSMount;
 import com.io7m.tavella.api.PodmanVolumeFlag;
 import com.io7m.tavella.api.PodmanVolumeMount;
 import com.io7m.tavella.api.PodmanVolumeMountSourceType;
@@ -42,11 +44,13 @@ public final class PNRun
   private final TreeMap<String, String> environment;
   private final ArrayList<String> containerArguments;
   private final ArrayList<PodmanVolumeMount> volumes;
+  private final ArrayList<PodmanTmpFSMount> tmpfs;
   private Optional<String> containerName;
   private boolean interactive;
   private boolean tty;
   private Optional<PodmanImage> image;
   private boolean remove;
+  private boolean readOnly;
 
   /**
    * @param inConfiguration The configuration
@@ -60,9 +64,11 @@ public final class PNRun
     super(inConfiguration);
 
     this.volumes =
-      new ArrayList<PodmanVolumeMount>();
+      new ArrayList<>();
+    this.tmpfs =
+      new ArrayList<>();
     this.containerArguments =
-      new ArrayList<String>();
+      new ArrayList<>();
     this.environment =
       new TreeMap<>();
     this.containerName =
@@ -81,25 +87,10 @@ public final class PNRun
     final var arguments = new ArrayList<String>();
     arguments.add("run");
 
-    if (this.interactive) {
-      arguments.add("--interactive");
-    }
-    if (this.tty) {
-      arguments.add("--tty");
-    }
-    if (this.remove) {
-      arguments.add("--rm");
-    }
-
-    for (final var entry : this.environment.entrySet()) {
-      arguments.add("--env");
-      arguments.add("%s=%s".formatted(entry.getKey(), entry.getValue()));
-    }
-
-    for (final var mount : this.volumes) {
-      arguments.add("--volume");
-      arguments.add(volumeSpec(mount));
-    }
+    this.addArgumentOptions(arguments);
+    this.addArgumentEnvironment(arguments);
+    this.addArgumentMounts(arguments);
+    this.addArgumentTmpFS(arguments);
 
     if (this.containerName.isPresent()) {
       arguments.add("--name");
@@ -109,6 +100,69 @@ public final class PNRun
     arguments.add(this.image.get().fullImageName());
     arguments.addAll(this.containerArguments);
     return this.createNewProcessBuilder(List.copyOf(arguments));
+  }
+
+  private void addArgumentMounts(
+    final ArrayList<String> arguments)
+  {
+    for (final var mount : this.volumes) {
+      arguments.add("--volume");
+      arguments.add(volumeSpec(mount));
+    }
+  }
+
+  private void addArgumentTmpFS(
+    final ArrayList<String> arguments)
+  {
+    for (final var mount : this.tmpfs) {
+      arguments.add("--tmpfs");
+      arguments.add(tmpfsSpec(mount));
+    }
+  }
+
+  private static String tmpfsSpec(
+    final PodmanTmpFSMount mount)
+  {
+    final var spec = new StringBuilder();
+    spec.append(mount.containerPath());
+
+    if (!mount.options().isEmpty()) {
+      spec.append(':');
+      spec.append(
+        mount.options()
+          .stream()
+          .map(PodmanTmpFSFlag::tag)
+          .collect(Collectors.joining(","))
+      );
+    }
+
+    return spec.toString();
+  }
+
+  private void addArgumentEnvironment(
+    final ArrayList<String> arguments)
+  {
+    for (final var entry : this.environment.entrySet()) {
+      arguments.add("--env");
+      arguments.add("%s=%s".formatted(entry.getKey(), entry.getValue()));
+    }
+  }
+
+  private void addArgumentOptions(
+    final ArrayList<String> arguments)
+  {
+    if (this.interactive) {
+      arguments.add("--interactive");
+    }
+    if (this.tty) {
+      arguments.add("--tty");
+    }
+    if (this.remove) {
+      arguments.add("--rm");
+    }
+    if (this.readOnly) {
+      arguments.add("--read-only");
+    }
   }
 
   private static String volumeSpec(
@@ -164,6 +218,14 @@ public final class PNRun
   }
 
   @Override
+  public PodmanProcessRunBuilderType setRootReadOnly(
+    final boolean ro)
+  {
+    this.readOnly = ro;
+    return this;
+  }
+
+  @Override
   public PodmanProcessRunBuilderType addEnvironmentVariable(
     final String name,
     final String value)
@@ -204,6 +266,16 @@ public final class PNRun
   {
     this.volumes.add(
       Objects.requireNonNull(volumeMount, "volumeMount")
+    );
+    return this;
+  }
+
+  @Override
+  public PodmanProcessRunBuilderType addTmpFS(
+    final PodmanTmpFSMount mount)
+  {
+    this.tmpfs.add(
+      Objects.requireNonNull(mount, "mount")
     );
     return this;
   }

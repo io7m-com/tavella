@@ -58,6 +58,17 @@ public interface PodmanProcessRunBuilderType
     boolean remove);
 
   /**
+   * @param ro {@code true} if the root partition is read-only
+   *
+   * @return this
+   *
+   * @see "--read-only"
+   */
+
+  PodmanProcessRunBuilderType setRootReadOnly(
+    boolean ro);
+
+  /**
    * @param name  The name
    * @param value The value
    *
@@ -111,4 +122,15 @@ public interface PodmanProcessRunBuilderType
 
   PodmanProcessRunBuilderType addVolume(
     PodmanVolumeMount volumeMount);
+
+  /**
+   * Add a volume mount
+   *
+   * @param mount The volume mount
+   *
+   * @return this
+   */
+
+  PodmanProcessRunBuilderType addTmpFS(
+    PodmanTmpFSMount mount);
 }
