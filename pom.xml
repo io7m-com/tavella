@@ -13,7 +13,7 @@
 
   <groupId>com.io7m.tavella</groupId>
   <artifactId>com.io7m.tavella</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2-SNAPSHOT</version>
 
   <packaging>pom</packaging>
   <name>com.io7m.tavella</name>
@@ -27,7 +27,7 @@
   </modules>
 
   <properties>
-    <io7m.api.previousVersion>0.0.1-SNAPSHOT</io7m.api.previousVersion>
+    <io7m.api.previousVersion>0.0.1</io7m.api.previousVersion>
     <jqwik.version>1.8.1</jqwik.version>
     <junit.version>5.10.0</junit.version>
   </properties>
