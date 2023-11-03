@@ -8,12 +8,12 @@
   <parent>
     <groupId>com.io7m.primogenitor</groupId>
     <artifactId>com.io7m.primogenitor.full</artifactId>
-    <version>8.0.0</version>
+    <version>8.1.0</version>
   </parent>
 
   <groupId>com.io7m.tavella</groupId>
   <artifactId>com.io7m.tavella</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
 
   <packaging>pom</packaging>
   <name>com.io7m.tavella</name>
@@ -28,7 +28,7 @@
 
   <properties>
     <io7m.api.previousVersion>0.0.1-SNAPSHOT</io7m.api.previousVersion>
-    <jqwik.version>1.8.0</jqwik.version>
+    <jqwik.version>1.8.1</jqwik.version>
     <junit.version>5.10.0</junit.version>
   </properties>
 
@@ -111,7 +111,7 @@
       <dependency>
         <groupId>com.io7m.primogenitor</groupId>
         <artifactId>com.io7m.primogenitor.support</artifactId>
-        <version>8.0.0</version>
+        <version>8.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.osgi</groupId>
@@ -138,12 +138,12 @@
       <dependency>
         <groupId>nl.jqno.equalsverifier</groupId>
         <artifactId>equalsverifier</artifactId>
-        <version>3.15.1</version>
+        <version>3.15.3</version>
       </dependency>
       <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
-        <version>5.5.0</version>
+        <version>5.7.0</version>
       </dependency>
       <dependency>
         <groupId>net.jqwik</groupId>
