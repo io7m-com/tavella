@@ -13,7 +13,7 @@
 
   <groupId>com.io7m.tavella</groupId>
   <artifactId>com.io7m.tavella</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>0.0.2</version>
 
   <packaging>pom</packaging>
   <name>com.io7m.tavella</name>
@@ -28,7 +28,7 @@
 
   <properties>
     <!-- Configuration. -->
-    <io7m.api.previousVersion>0.0.2-SNAPSHOT</io7m.api.previousVersion>
+    <io7m.api.previousVersion>0.0.2</io7m.api.previousVersion>
     <io7m.java.targetJavaVersion>21</io7m.java.targetJavaVersion>
 
     <!-- Third-party dependencies. -->
