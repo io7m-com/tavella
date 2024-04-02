@@ -133,4 +133,15 @@ public interface PodmanProcessRunBuilderType
 
   PodmanProcessRunBuilderType addTmpFS(
     PodmanTmpFSMount mount);
+
+  /**
+   * @param pod The pod image
+   *
+   * @return this
+   *
+   * @see "--pod"
+   */
+
+  PodmanProcessRunBuilderType setPod(
+    String pod);
 }

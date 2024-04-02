@@ -19,7 +19,6 @@ package com.io7m.tavella.tests;
 
 import com.io7m.tavella.api.PodmanExecutableConfiguration;
 import com.io7m.tavella.api.PodmanImage;
-import com.io7m.tavella.api.PodmanVolumeFlag;
 import com.io7m.tavella.api.PodmanVolumeMount;
 import com.io7m.tavella.api.PodmanVolumeMountSourceType;
 import com.io7m.tavella.native_exec.PodmanNative;
@@ -110,8 +109,7 @@ public final class PodmanNativeTest
           "quay.io",
           "prometheus/busybox",
           "latest",
-          Optional.of(
-            "sha256:b2273588d9afbfb580e4421c6b41ded2a3e25b889ed002e7bab64e9119835c45")
+          Optional.empty()
         ))
         .setTTY(true)
         .setInteractive(true)

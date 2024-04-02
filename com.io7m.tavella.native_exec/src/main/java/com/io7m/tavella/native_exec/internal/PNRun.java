@@ -51,6 +51,7 @@ public final class PNRun
   private Optional<PodmanImage> image;
   private boolean remove;
   private boolean readOnly;
+  private Optional<String> podName;
 
   /**
    * @param inConfiguration The configuration
@@ -75,6 +76,8 @@ public final class PNRun
       Optional.empty();
     this.image =
       Optional.empty();
+    this.podName =
+      Optional.empty();
   }
 
   @Override
@@ -95,6 +98,11 @@ public final class PNRun
     if (this.containerName.isPresent()) {
       arguments.add("--name");
       arguments.add(this.containerName.get());
+    }
+
+    if (this.podName.isPresent()) {
+      arguments.add("--pod");
+      arguments.add(this.podName.get());
     }
 
     arguments.add(this.image.get().fullImageName());
@@ -277,6 +285,14 @@ public final class PNRun
     this.tmpfs.add(
       Objects.requireNonNull(mount, "mount")
     );
+    return this;
+  }
+
+  @Override
+  public PodmanProcessRunBuilderType setPod(
+    final String pod)
+  {
+    this.podName = Optional.of(pod);
     return this;
   }
 }
