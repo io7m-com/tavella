@@ -44,9 +44,9 @@
   </licenses>
 
   <scm>
-    <url>https://github.com/io7m/tavella</url>
-    <connection>scm:git:https://github.com/io7m/tavella</connection>
-    <developerConnection>scm:git:https://github.com/io7m/tavella</developerConnection>
+    <url>https://www.github.com/io7m-com/tavella</url>
+    <connection>scm:git:https://www.github.com/io7m-com/tavella</connection>
+    <developerConnection>scm:git:https://www.github.com/io7m-com/tavella</developerConnection>
   </scm>
 
   <developers>
@@ -81,7 +81,7 @@
 
   <ciManagement>
     <system>GitHub Actions</system>
-    <url>https://github.com/io7m/tavella/actions</url>
+    <url>https://www.github.com/io7m-com/tavella/actions</url>
   </ciManagement>
 
   <prerequisites>
