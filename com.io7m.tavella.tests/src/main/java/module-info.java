@@ -27,6 +27,7 @@ open module com.io7m.tavella.tests
   requires org.junit.jupiter.engine;
   requires org.junit.platform.commons;
   requires org.junit.platform.engine;
+  requires org.junit.platform.launcher;
 
   requires org.slf4j;
   requires com.io7m.tavella.api;
