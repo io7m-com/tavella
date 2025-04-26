@@ -37,6 +37,8 @@ public sealed interface PodmanVolumeMountSourceType
   {
     /**
      * The source is a named volume.
+     *
+     * @param name The volume name
      */
 
     public NamedVolume
@@ -56,6 +58,8 @@ public sealed interface PodmanVolumeMountSourceType
   {
     /**
      * The source is a host path.
+     *
+     * @param path The path
      */
 
     public HostPath
